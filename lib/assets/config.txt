@@ -1,0 +1,3 @@
+readdate,2018-07-08
+url,http://www.example.com
+readurl,http://www.example.com
