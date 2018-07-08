@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["John Campbell"]
   spec.email         = ["j.a.campbell@icloud.com"]
 
-  spec.summary       = %q{Exchange rates}
-  spec.description   = %q{returns exchange rate between two currencies}
+  spec.summary       = %q{provides exchange rates}
+  spec.description   = %q{accepts a date and two currencies. Returns conversion rate between them if date is within 89 days of the current date}
   spec.homepage      = ""
   spec.license       = "MIT"
 

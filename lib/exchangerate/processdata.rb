@@ -22,7 +22,7 @@ module ProcessData
     @country = ""
     @rate = ""
     @date = ""
-    ExtractInformation(convertedData) #populates the @dataHash in a format that makes lookup easier
+    ExtractInformation(convertedData) 
     return @dataHash
   end  
 
@@ -35,7 +35,11 @@ module ProcessData
     return '?' #unknown
   end
 
+ 
   def ProcessData.ExtractInformation(data)
+  #populates the @dataHash in a format that makes lookup easier
+  #returned format is {time=>{country=>rate}}
+  datefirst = false #need to process data correctly if date is after block of data or before it
     if (data.class == Hash)
       data.keys.each do
       |key|         
@@ -44,13 +48,20 @@ module ProcessData
       else
         dataElement = IdentifyData(data[key])
 	case dataElement
-	when "date"
-	  @date = data[key]
-	  #if the rate hash is populated we can add the date(key) and rate hash(value) to the data hash
-	  if (!@rateHash.empty?)
+	when "date"	  
+	  #data format is either going to be date followed by block of data for that date
+	  #or block of data followed by date. Need to handle both.
+	  if (!@rateHash.empty?)                        
+            if datefirst == false 
+	      @date = data[key] 
+            end
  	    AddToDataHash(@date,@rateHash)
+            @date = data[key] #
             @date = ""
             @rateHash.clear
+          else
+            #if we have a date, but the @rateHash is empty then the date must be associated with the following data.
+            datefirst = true
 	  end
         when "country"
  	  @country = data[key]
