@@ -41,7 +41,7 @@ module Rates
     counterRate = GetRate(date, counter) 
     return 0 if (baseRate == nil || counterRate == nil)
     dp = GetMaxDp(baseRate,counterRate)
-    return (baseRate.to_f / counterRate.to_f).round(dp)    
+    return (counterRate.to_f/baseRate.to_f).round(dp)    
   end
 
   def Rates.GetMaxDp(base,counter)
